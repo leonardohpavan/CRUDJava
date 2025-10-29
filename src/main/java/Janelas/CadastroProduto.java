@@ -97,6 +97,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         });
 
         jBAlterar.setText("Alterar");
+        jBAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setText("Excluir");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +238,20 @@ public class CadastroProduto extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jTProdutosMouseClicked
+
+    private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
+        if (jTProdutos.getSelectedRow() != -1) {
+            modelo.setValueAt(jTDescricao.getText(), jTProdutos.getSelectedRow(), 0);
+            modelo.setValueAt(jTQuantidade.getText(), jTProdutos.getSelectedRow(), 1);
+            modelo.setValueAt(jTValor.getText(), jTProdutos.getSelectedRow(), 2);
+            
+            Produto p = modelo.pegaDadosLinha(jTProdutos.getSelectedRow());
+            ProdutoDAO dao = new ProdutoDAO();
+            dao.update(p);
+            limpaCampos();
+            modelo.recarregaTabela();
+        }
+    }//GEN-LAST:event_jBAlterarActionPerformed
     
     private void limpaCampos(){
         jTDescricao.setText("");
